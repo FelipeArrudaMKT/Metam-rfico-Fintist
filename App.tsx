@@ -1,5 +1,5 @@
 
-import React, { useState, createContext, useContext } from 'react';
+import React, { useState, useEffect, createContext, useContext } from 'react';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { Home } from './pages/Home';
@@ -32,12 +32,12 @@ export const useApp = () => {
 };
 
 const App: React.FC = () => {
-  const [state, setState] = useState<AppState>(() => ({
+  const [state, setState] = useState<AppState>({
     user: getFromStorage<UserProfile | null>('user', null),
     history: getFromStorage<DailyStats[]>('history', []),
     today: getFromStorage<DailyStats>('today', INITIAL_STATS),
     isLoggedIn: !!getFromStorage<UserProfile | null>('user', null),
-  }));
+  });
 
   const setUser = (user: UserProfile) => {
     saveToStorage('user', user);
@@ -68,18 +68,13 @@ const App: React.FC = () => {
             <Route path="/" element={<Home />} />
             <Route path="/quiz" element={<Quiz />} />
             <Route path="/login" element={<Login />} />
-            
-            {/* Proteção de Rotas */}
-            <Route path="/dashboard" element={state.isLoggedIn ? <Dashboard /> : <Navigate to="/login" replace />} />
-            <Route path="/treinos" element={state.isLoggedIn ? <Treinos /> : <Navigate to="/login" replace />} />
-            <Route path="/dieta" element={state.isLoggedIn ? <Dieta /> : <Navigate to="/login" replace />} />
-            <Route path="/planner" element={state.isLoggedIn ? <Planner /> : <Navigate to="/login" replace />} />
-            <Route path="/calculadora" element={state.isLoggedIn ? <Calculadora /> : <Navigate to="/login" replace />} />
-            <Route path="/resultados" element={state.isLoggedIn ? <Resultados /> : <Navigate to="/login" replace />} />
-            <Route path="/perfil" element={state.isLoggedIn ? <Perfil /> : <Navigate to="/login" replace />} />
-
-            {/* Rota 404 - Impede tela branca em URLs desconhecidas */}
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="/dashboard" element={state.isLoggedIn ? <Dashboard /> : <Navigate to="/login" />} />
+            <Route path="/treinos" element={state.isLoggedIn ? <Treinos /> : <Navigate to="/login" />} />
+            <Route path="/dieta" element={state.isLoggedIn ? <Dieta /> : <Navigate to="/login" />} />
+            <Route path="/planner" element={state.isLoggedIn ? <Planner /> : <Navigate to="/login" />} />
+            <Route path="/calculadora" element={state.isLoggedIn ? <Calculadora /> : <Navigate to="/login" />} />
+            <Route path="/resultados" element={state.isLoggedIn ? <Resultados /> : <Navigate to="/login" />} />
+            <Route path="/perfil" element={state.isLoggedIn ? <Perfil /> : <Navigate to="/login" />} />
           </Routes>
         </Layout>
       </HashRouter>
