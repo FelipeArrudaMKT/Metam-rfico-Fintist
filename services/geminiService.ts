@@ -1,10 +1,10 @@
-
 import { GoogleGenAI } from "@google/genai";
 import { UserProfile } from "../types";
 
 export const getMetamorphicAdvice = async (user: UserProfile) => {
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || "" });
+    // Initializing with named parameter and direct process.env.API_KEY access as per @google/genai guidelines
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     const prompt = `Atue como um coach de elite. Com base nos dados do atleta:
     Nome: ${user.name}
     Objetivo: ${user.goal}
@@ -17,6 +17,7 @@ export const getMetamorphicAdvice = async (user: UserProfile) => {
       contents: prompt,
     });
 
+    // Accessing text property directly (not as a method) as required
     return response.text || "O CORPO É O REFLEXO DA SUA DISCIPLINA. NÃO PARE AGORA.";
   } catch (error) {
     console.error("Gemini Error:", error);
