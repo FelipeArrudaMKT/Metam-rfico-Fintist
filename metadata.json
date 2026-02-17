@@ -1,0 +1,7 @@
+{
+  "name": "METAMÓRFICO FINTISTA",
+  "description": "A high-performance fitness transformation platform featuring workout protocols, personalized diets, and advanced progress tracking with an aggressive neon-visual aesthetic.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
