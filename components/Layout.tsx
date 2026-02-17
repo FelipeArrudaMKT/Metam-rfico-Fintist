@@ -5,6 +5,7 @@ import { LayoutDashboard, Dumbbell, Utensils, Calendar, Calculator, TrendingUp, 
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
+  const isHome = location.pathname === '/';
 
   const navItems = [
     { path: '/dashboard', icon: <LayoutDashboard size={20} />, label: 'Home' },
@@ -16,10 +17,10 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     { path: '/perfil', icon: <User size={20} />, label: 'Perfil' },
   ];
 
-  const hideNav = location.pathname === '/' || location.pathname === '/quiz' || location.pathname === '/login';
+  const hideNav = isHome || location.pathname === '/quiz' || location.pathname === '/login';
 
   return (
-    <div className="min-h-screen bg-[#050505] pb-24 lg:pb-0 lg:pl-64">
+    <div className={`min-h-screen pb-24 lg:pb-0 lg:pl-64 ${isHome ? 'bg-[#050505] text-white' : 'bg-white text-black'}`}>
       {!hideNav && (
         <nav className="fixed bottom-0 left-0 right-0 bg-[#0a0a0a]/90 backdrop-blur-xl border-t border-white/10 p-2 flex justify-around items-center z-50 lg:hidden">
           {navItems.map((item) => (
