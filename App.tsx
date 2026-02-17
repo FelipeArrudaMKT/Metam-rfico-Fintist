@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Layout } from './components/Layout';
@@ -68,13 +67,15 @@ const App: React.FC = () => {
             <Route path="/" element={<Home />} />
             <Route path="/quiz" element={<Quiz />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/dashboard" element={state.isLoggedIn ? <Dashboard /> : <Navigate to="/login" />} />
-            <Route path="/treinos" element={state.isLoggedIn ? <Treinos /> : <Navigate to="/login" />} />
-            <Route path="/dieta" element={state.isLoggedIn ? <Dieta /> : <Navigate to="/login" />} />
-            <Route path="/planner" element={state.isLoggedIn ? <Planner /> : <Navigate to="/login" />} />
-            <Route path="/calculadora" element={state.isLoggedIn ? <Calculadora /> : <Navigate to="/login" />} />
-            <Route path="/resultados" element={state.isLoggedIn ? <Resultados /> : <Navigate to="/login" />} />
-            <Route path="/perfil" element={state.isLoggedIn ? <Perfil /> : <Navigate to="/login" />} />
+            <Route path="/dashboard" element={state.isLoggedIn ? <Dashboard /> : <Navigate to="/login" replace />} />
+            <Route path="/treinos" element={state.isLoggedIn ? <Treinos /> : <Navigate to="/login" replace />} />
+            <Route path="/dieta" element={state.isLoggedIn ? <Dieta /> : <Navigate to="/login" replace />} />
+            <Route path="/planner" element={state.isLoggedIn ? <Planner /> : <Navigate to="/login" replace />} />
+            <Route path="/calculadora" element={state.isLoggedIn ? <Calculadora /> : <Navigate to="/login" replace />} />
+            <Route path="/resultados" element={state.isLoggedIn ? <Resultados /> : <Navigate to="/login" replace />} />
+            <Route path="/perfil" element={state.isLoggedIn ? <Perfil /> : <Navigate to="/login" replace />} />
+            {/* Fallback para evitar tela branca em rotas inexistentes */}
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Layout>
       </HashRouter>
